@@ -1,5 +1,5 @@
 public class DVD extends LibraryItem implements Borrowable {
-    private int duration; // minuty
+    private int duration;
     private String director;
     private boolean borrowed;
 
