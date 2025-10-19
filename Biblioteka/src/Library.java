@@ -2,15 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<LibraryItem> items;
-
-    public Library() {
-        items = new ArrayList<>();
-    }
+    private final List<LibraryItem> items = new ArrayList<>();
 
     public void addItem(LibraryItem item) {
         items.add(item);
-        System.out.println("Dodano do biblioteki: " + item.getTitle() + " (" + item.getType() + ")");
+        System.out.println("Dodano: " + item.getTitle() + " (" + item.getType() + ")");
     }
 
     public LibraryItem findItemById(int id) {
@@ -21,7 +17,11 @@ public class Library {
     }
 
     public void showAllItems() {
-        System.out.println("\n=== Lista wszystkich pozycji w bibliotece ===");
+        System.out.println("Wszystkie pozycje w bibliotece");
+        if (items.isEmpty()) {
+            System.out.println("(Brak pozycji, dodaj coś z menu 1–3.)");
+            return;
+        }
         for (LibraryItem item : items) {
             item.displayInfo();
             System.out.println("----------------------------------------");
@@ -29,11 +29,21 @@ public class Library {
     }
 
     public void showAvailableItems() {
-        System.out.println("\n=== Dostępne pozycje ===");
+        System.out.println("Dostępne pozycje do wypożyczenia");
+        if (items.isEmpty()) {
+            System.out.println("(Brak pozycji. Dodaj coś z menu 1–3.)");
+            return;
+        }
+        boolean any = false;
         for (LibraryItem item : items) {
             if (item.isAvailable()) {
-                System.out.println(item.getTitle() + " (" + item.getType() + ")");
+                any = true;
+                System.out.println("- " + item.getTitle() + " (" + item.getType() + "), ID: " + item.getId());
             }
+        }
+        if (!any) {
+            System.out.println("(Aktualnie nic nie jest dostępne.)");
         }
     }
 }
+
